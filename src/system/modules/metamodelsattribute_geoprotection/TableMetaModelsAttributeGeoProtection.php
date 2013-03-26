@@ -25,6 +25,13 @@
 class TableMetaModelsAttributeGeoProtection extends TableMetaModelAttribute 
 {
 
+	protected static $objInstance;
+	
+	public static function getInstance() {
+		isset(self::$objInstance) || self::$objInstance = new self();
+		return self::$objInstance;
+	}
+
 	public function __construct() {
 		parent::__construct();
 	}

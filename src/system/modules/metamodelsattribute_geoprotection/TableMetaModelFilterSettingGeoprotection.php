@@ -24,6 +24,14 @@
  */
 class TableMetaModelFilterSettingGeoprotection extends TableMetaModelFilterSetting
 {
+
+	protected static $objInstance;
+
+	public static function getInstance() {
+		isset(self::$objInstance) || self::$objInstance = new self();
+		return self::$objInstance;
+	}
+
 	/**
 	 * Prepares a option list with alias => name connection for all attributes.
 	 * This is used in the attr_id select box.
