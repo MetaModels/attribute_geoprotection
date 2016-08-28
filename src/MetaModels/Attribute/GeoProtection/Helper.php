@@ -7,6 +7,7 @@
  * data in each collection.
  *
  * PHP version 5
+ *
  * @package     MetaModels
  * @subpackage  AttributeGeoProtection
  * @author      Christian Schiffler <c.schiffler@cyberspectrum.de>
@@ -63,8 +64,8 @@ class Helper
             \System::loadLanguageFile('continents');
 
             // Include all files with name.
-            require_once TL_ROOT.'/system/config/countries.php';
-            require_once TL_ROOT.'/system/config/countriesByContinent.php';
+            require_once TL_ROOT . '/system/config/countries.php';
+            require_once TL_ROOT . '/system/config/countriesByContinent.php';
 
             /** @var $countriesByContinent array */
             foreach ($countriesByContinent as $strConKey => $arrCountries) {
@@ -76,10 +77,10 @@ class Helper
                 // Add all countries.
                 foreach (array_keys($arrCountries) as $key) {
                     $arrTmp[$key] = array(
-                        'name'         => strlen($GLOBALS['TL_LANG']['CNT'][$key])
+                        'name' => strlen($GLOBALS['TL_LANG']['CNT'][$key])
                             ? utf8_romanize($GLOBALS['TL_LANG']['CNT'][$key])
                             : $countries[$key],
-                        'parent-name'  => $strParentName,
+                        'parent-name' => $strParentName,
                         'parent-short' => $strConKey,
                     );
                 }
@@ -105,6 +106,10 @@ class Helper
     {
         $arrCountries = self::getCountriesList();
         $arrReturn    = array();
+
+        if (empty($arrValues)) {
+            $arrValues = array();
+        }
 
         if (empty($arrValues)) {
             if (empty(self::$arrFullList)) {
