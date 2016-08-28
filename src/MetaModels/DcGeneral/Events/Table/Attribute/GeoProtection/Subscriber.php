@@ -20,7 +20,7 @@
 namespace MetaModels\DcGeneral\Events\Table\Attribute\GeoProtection;
 
 use ContaoCommunityAlliance\DcGeneral\Contao\View\Contao2BackendView\Event\GetPropertyOptionsEvent;
-use MetaModels\Attribute\Geoprotection\Helper;
+use MetaModels\Attribute\GeoProtection\Helper;
 use MetaModels\DcGeneral\Events\BaseSubscriber;
 
 /**
