@@ -10,12 +10,13 @@
  *
  * This project is provided in good faith and hope to be usable by anyone.
  *
- * @package     MetaModels
- * @subpackage  AttributeGeoProtection
- * @author      Christian Schiffler <c.schiffler@cyberspectrum.de>
- * @author      David Greminger <david.greminger@1up.io>
- * @copyright   2012-2016 The MetaModels team.
- * @license     https://github.com/MetaModels/attribute_geoprotection/blob/master/LICENSE LGPL-3.0
+ * @package    MetaModels
+ * @subpackage AttributeGeoProtection
+ * @author     Christian Schiffler <c.schiffler@cyberspectrum.de>
+ * @author     David Greminger <david.greminger@1up.io>
+ * @author     Stefan Heimes <stefan_heimes@hotmail.com>
+ * @copyright  2012-2016 The MetaModels team.
+ * @license    https://github.com/MetaModels/attribute_geoprotection/blob/master/LICENSE LGPL-3.0
  * @filesource
  */
 
@@ -28,9 +29,9 @@ use MetaModels\Render\Template;
 /**
  * This is the MetaModelAttribute class for handling text fields.
  *
- * @package       MetaModels
- * @subpackage    AttributeGeoProtection
- * @author        Christian Schiffler <c.schiffler@cyberspectrum.de>
+ * @package    MetaModels
+ * @subpackage AttributeGeoProtection
+ * @author     Christian Schiffler <c.schiffler@cyberspectrum.de>
  */
 class GeoProtection extends BaseComplex
 {
@@ -131,11 +132,13 @@ class GeoProtection extends BaseComplex
     public function getDataFor($arrIds)
     {
         $arrData = array();
+        $sql     = 'SELECT * FROM tl_metamodel_geoprotection WHERE attr_id = ? AND item_id = ?';
+
         foreach ($arrIds as $id) {
             $objResult = \Database::getInstance()
-                ->prepare('SELECT * FROM tl_metamodel_geoprotection WHERE attr_id = ? AND item_id = ?')
-                ->limit(1)
-                ->execute($this->get('id'), $id);
+                                  ->prepare($sql)
+                                  ->limit(1)
+                                  ->execute($this->get('id'), $id);
 
             if ($objResult->numRows > 0) {
                 $arrData[$id] = array(
@@ -156,6 +159,8 @@ class GeoProtection extends BaseComplex
      */
     public function setDataFor($arrValues)
     {
+        $sql = 'INSERT INTO tl_metamodel_geoprotection %s ON DUPLICATE KEY UPDATE countries = ?, mode = ?';
+
         foreach ($arrValues as $id => $value) {
             if (!is_array($value)) {
                 continue;
@@ -171,9 +176,9 @@ class GeoProtection extends BaseComplex
             );
 
             \Database::getInstance()
-                ->prepare('INSERT INTO tl_metamodel_geoprotection %s ON DUPLICATE KEY UPDATE countries = ?, mode = ?')
-                ->set($arrData)
-                ->execute(implode(',', $arrTmp), $value[0]['gp_mode']);
+                     ->prepare($sql)
+                     ->set($arrData)
+                     ->execute(implode(',', $arrTmp), $value[0]['gp_mode']);
         }
     }
 
@@ -183,9 +188,8 @@ class GeoProtection extends BaseComplex
      */
     public function unsetDataFor($arrIds)
     {
-        
+        // Return nothing.
     }
-
 
     /**
      * Returns an array with selected countries.
@@ -195,9 +199,9 @@ class GeoProtection extends BaseComplex
     public function getSelectedCountries()
     {
         $objValue = \Database::getInstance()
-            ->prepare('SELECT geoprotection FROM tl_metamodel_attribute WHERE id = ?')
-            ->limit(1)
-            ->execute($this->get('id'));
+                             ->prepare('SELECT geoprotection FROM tl_metamodel_attribute WHERE id = ?')
+                             ->limit(1)
+                             ->execute($this->get('id'));
 
         return Helper::getCountriesByContinent(deserialize($objValue->geoprotection));
     }
