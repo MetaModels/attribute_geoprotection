@@ -1,18 +1,22 @@
 <?php
 
 /**
- * The MetaModels extension allows the creation of multiple collections of custom items,
- * each with its own unique set of selectable attributes, with attribute extendability.
- * The Front-End modules allow you to build powerful listing and filtering of the
- * data in each collection.
+ * This file is part of MetaModels/attribute_alias.
  *
- * PHP version 5
- * @package     MetaModels
- * @subpackage  AttributeGeoProtection
- * @author      Christian Schiffler <c.schiffler@cyberspectrum.de>
- * @author      David Greminger <david.greminger@1up.io>
- * @copyright   The MetaModels team.
- * @license     LGPL.
+ * (c) 2012-2016 The MetaModels team.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * This project is provided in good faith and hope to be usable by anyone.
+ *
+ * @package    MetaModels
+ * @subpackage AttributeGeoProtection
+ * @author     Christian Schiffler <c.schiffler@cyberspectrum.de>
+ * @author     David Greminger <david.greminger@1up.io>
+ * @author     Stefan Heimes <stefan_heimes@hotmail.com>
+ * @copyright  2012-2016 The MetaModels team.
+ * @license    https://github.com/MetaModels/attribute_geoprotection/blob/master/LICENSE LGPL-3.0
  * @filesource
  */
 
@@ -49,8 +53,8 @@ class GeoProtection extends Simple
 
             $objFilterRule = new SimpleQuery(
                 'SELECT item_id FROM tl_metamodel_geoprotection WHERE attr_id = ? AND
-                    ((mode = \'\') OR (mode = \'gp_show\' AND ('.implode(' OR ', $arrCountry).')) OR
-                    (mode = \'gp_hide\' AND NOT ('.implode(' OR ', $arrCountry).')))',
+                    ((mode = \'\') OR (mode = \'gp_show\' AND (' . implode(' OR ', $arrCountry) . ')) OR
+                    (mode = \'gp_hide\' AND NOT (' . implode(' OR ', $arrCountry) . ')))',
                 array($this->get('gp_attr_id')),
                 'item_id'
             );
