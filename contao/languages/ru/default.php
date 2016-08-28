@@ -11,5 +11,7 @@
  * last-updated: 2014-12-18T08:12:51+01:00
  */
 
-$GLOBALS['TL_LANG']['tl_metamodel_attribute']['gp_hide'] = 'Verbergen';
-$GLOBALS['TL_LANG']['tl_metamodel_attribute']['gp_show'] = 'Anzeigen';
+
+$GLOBALS['TL_LANG']['tl_metamodel_attribute']['gp_hide'] = 'Скрыть';
+$GLOBALS['TL_LANG']['tl_metamodel_attribute']['gp_show'] = 'Показать';
+
