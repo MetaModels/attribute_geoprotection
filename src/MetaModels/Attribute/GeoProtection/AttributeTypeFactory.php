@@ -25,6 +25,7 @@ namespace MetaModels\Attribute\GeoProtection;
 
 use MetaModels\Attribute\AbstractAttributeTypeFactory;
 use MetaModels\Attribute\Events\CreateAttributeFactoryEvent;
+use MetaModels\MetaModelsEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -40,7 +41,7 @@ class AttributeTypeFactory extends AbstractAttributeTypeFactory implements Event
     public static function getSubscribedEvents()
     {
         return array(
-            CreateAttributeFactoryEvent::NAME => 'registerLegacyAttributeFactoryEvents',
+            MetaModelsEvents::ATTRIBUTE_FACTORY_CREATE => 'registerLegacyAttributeFactoryEvents',
         );
     }
 
