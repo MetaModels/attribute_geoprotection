@@ -6,4 +6,7 @@
 Geo protection
 ==============
 
-The geoprotection attribute
+The geoprotection attribute.
+
+
+This attribute is not maintained or developed further.
